@@ -21,3 +21,59 @@ jobs:
           --clientId ${{ secrets.POWER_PLATFORM_APP_ID }} `
           --clientSecret ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }} `
           --environment ${{ secrets.ENV_URL }}
+    - name: Export solution
+      run: |
+        pac solution export `
+          --name MainSolution `
+          --path out/MainSolution.zip `
+          --managed false
+    - name: Unpack solution
+      run: |
+        pac solution unpack `
+          --zipfile out/MainSolution.zip `
+          --folder solution-src `
+          --packagetype Both
+    - name: Rename solution
+      shell: pwsh
+      run: |
+        (Get-Content solution-src/Other/Solution.xml) `
+        -replace 'MainSolution', 'MainSolution_Copy' |
+        Set-Content solution-src/Other/Solution.xml
+    - name: Rename flows
+      shell: pwsh
+      run: |
+        Get-ChildItem solution-src/Workflows -Filter *.json | ForEach-Object {
+          (Get-Content $_) `
+          -replace 'Order Flow', 'Order Flow Copy' |
+          Set-Content $_
+        }
+    - name: Rename connectors
+      shell: pwsh
+      run: |
+        Get-ChildItem solution-src/CustomConnectors -Filter *.json | ForEach-Object {
+          (Get-Content $_) `
+          -replace 'OrderAPI', 'OrderAPI_Copy' |
+          Set-Content $_
+        }
+    - name: Change env var value
+      shell: pwsh
+      run: |
+        Get-ChildItem solution-src/EnvironmentVariableValues -Recurse | ForEach-Object {
+          (Get-Content $_) `
+          -replace 'https://api.old.com', 'https://api.new.com' |
+          Set-Content $_
+        }
+    - name: Pack solution
+      run: |
+        pac solution pack `
+          --folder solution-src `
+          --zipfile out/MainSolution_Copy.zip `
+          --packagetype Both
+    - name: Import solution
+      run: |
+        pac solution import `
+          --path out/MainSolution_Copy.zip `
+          --force-overwrite `
+          --activate-plugins
+
+          
