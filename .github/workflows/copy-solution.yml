@@ -17,7 +17,7 @@ jobs:
     - name: Login to Power Platform
       run: |
         pac auth create `
-          --tenant ${{ secrets.TENANT_ID }} `
-          --clientId ${{ secrets.CLIENT_ID }} `
-          --clientSecret ${{ secrets.CLIENT_SECRET }} `
+          --tenant ${{ secrets.POWER_PLATFORM_TENANT_ID }} `
+          --clientId ${{ secrets.POWER_PLATFORM_APP_ID }} `
+          --clientSecret ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }} `
           --environment ${{ secrets.ENV_URL }}
