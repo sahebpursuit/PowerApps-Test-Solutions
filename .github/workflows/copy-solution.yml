@@ -12,17 +12,14 @@ jobs:
     - name: Install Power Platform Tools
       uses: microsoft/powerplatform-actions/actions-install@v1
 
-    # # 1. Export and Unpack (Source & Target)
-    # - name: Export Solutions
-    #   shell: pwsh
-    #   run: |
-    #     pac solution export --url ${{ secrets.ENV_URL }} --name ITSTCOE_OCTO_UATNext_Test_Solution --outputfile source.zip
-    #     pac solution export --url ${{ secrets.ENV_URL }} --name ITSTCOE_JMFE_UATNext_Procurement_Solution --outputfile target.zip
 # 1. Export Source and Target using official Actions (handles 'pac' automatically)
     - name: Export Source Solution
       uses: microsoft/powerplatform-actions/export-solution@v1
       with:
         environment-url: ${{ secrets.ENV_URL }}
+        app-id: ${{ secrets.POWER_PLATFORM_APP_ID }}
+        client-secret: ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.POWER_PLATFORM_TENANT_ID }}
         solution-name: 'ITSTCOE_OCTO_UATNext_Test_Solution'
         solution-output-file: 'source.zip'
 
@@ -30,6 +27,9 @@ jobs:
       uses: microsoft/powerplatform-actions/export-solution@v1
       with:
         environment-url: ${{ secrets.ENV_URL }}
+        app-id: ${{ secrets.POWER_PLATFORM_APP_ID }}
+        client-secret: ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.POWER_PLATFORM_TENANT_ID }}
         solution-name: 'ITSTCOE_JMFE_UATNext_Procurement_Solution'
         solution-output-file: 'target.zip'
     - name: Unpack Solutions
@@ -87,5 +87,8 @@ jobs:
       uses: microsoft/powerplatform-actions/import-solution@v1
       with:
         environment-url: ${{ secrets.ENV_URL }}
+        app-id: ${{ secrets.POWER_PLATFORM_APP_ID }}
+        client-secret: ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }}
+        tenant-id: ${{ secrets.POWER_PLATFORM_TENANT_ID }}
         solution-file: 'updated_procurement.zip'
         force-overwrite: true
