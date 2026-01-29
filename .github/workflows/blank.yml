@@ -1,0 +1,5 @@
+- name: Clear Old Auth Profiles
+      shell: pwsh
+      run: |
+        pac auth clear
+        Write-Host "Old authentication profiles cleared." -ForegroundColor Cyan
