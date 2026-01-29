@@ -20,7 +20,7 @@ jobs:
     - name: Export Source Solution
       uses: microsoft/powerplatform-actions/export-solution@v1
       with:
-        environment-url: ${{ secrets.ENV_URL }}
+        environment-url: ${{ env.ENVIRONMENT_URL }}
         solution-name: ${{ env.SOURCE_NAME }}
         solution-output-file: 'source.zip'
 
