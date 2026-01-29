@@ -1,5 +1,8 @@
-- name: Clear Old Auth Profiles
-      shell: pwsh
-      run: |
-        pac auth clear
-        Write-Host "Old authentication profiles cleared." -ForegroundColor Cyan
+- name: Check PAC Auth Status
+  shell: pwsh
+  run: |
+    # This shows who the CLI thinks it is
+    pac auth list
+    
+    # This tests if the current identity can actually "see" the environment
+    pac org who --url ${{ secrets.ENV_URL }}
