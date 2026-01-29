@@ -1,78 +1,78 @@
-name: Sync-Solution-Logic-Only
+name: Sync-Logic-And-Translate-Prefix
 on:
   workflow_dispatch:
 
 jobs:
-  sync-logic:
+  overlay-and-replace:
     runs-on: windows-latest
-    env:
-      SOURCE_NAME: 'ITSTCOE_OCTO_UATNext_Test_Solution'
-      TARGET_NAME: 'ITSTCOE_JMFE_UATNext_Procurement_Solution'
-      ENVIRONMENT_URL: ${{ secrets.ENV_URL }}
-
     steps:
     - uses: actions/checkout@v4
 
+    # Corrected path: added /actions/ to the uses string
     - name: Install Power Platform Tools
       uses: microsoft/powerplatform-actions/actions/install-tools@v1
 
-    # 1. Export both solutions from the environment
-    - name: Export Source Solution
-      uses: microsoft/powerplatform-actions/export-solution@v1
-      with:
-        environment-url: ${{ env.ENVIRONMENT_URL }}
-        solution-name: ${{ env.SOURCE_NAME }}
-        solution-output-file: 'source.zip'
-
-    - name: Export Target Solution
-      uses: microsoft/powerplatform-actions/export-solution@v1
-      with:
-        environment-url: ${{ env.ENVIRONMENT_URL }}
-        solution-name: ${{ env.TARGET_NAME }}
-        solution-output-file: 'target.zip'
-
-    # 2. Unpack both to separate folders
-    - name: Unpack Solutions
+    # 1. Export and Unpack (Source & Target)
+    - name: Export Solutions
+      shell: pwsh
       run: |
-        pac solution unpack --zipfile source.zip --folder src_folder
-        pac solution unpack --zipfile target.zip --folder dst_folder
+        pac solution export --url ${{ secrets.ENV_URL }} --name ITSTCOE_OCTO_UATNext_Test_Solution --outputfile source.zip
+        pac solution export --url ${{ secrets.ENV_URL }} --name ITSTCOE_JMFE_UATNext_Procurement_Solution --outputfile target.zip
 
-    # 3. PowerShell Script to copy logic but preserve metadata
-    - name: Overlay Logic
+    - name: Unpack Solutions
+      uses: microsoft/powerplatform-actions/actions/unpack-solution@v1
+      with:
+        solution-file: 'source.zip'
+        solution-folder: 'src_folder'
+        solution-type: 'Unmanaged'
+
+    - name: Unpack Target
+      uses: microsoft/powerplatform-actions/actions/unpack-solution@v1
+      with:
+        solution-file: 'target.zip'
+        solution-folder: 'dst_folder'
+        solution-type: 'Unmanaged'
+
+    # 2. Sync Logic and Translate Prefixes
+    - name: Overlay Logic and Rename Prefixes
       shell: pwsh
       run: |
         $src = "./src_folder"
         $dst = "./dst_folder"
-
-        # List of folders to sync (Flows, Apps, etc.)
-        $foldersToSync = @("Workflows", "CanvasApps", "WebResources")
-
-        foreach ($folder in $foldersToSync) {
-            if (Test-Path "$src/$folder") {
-                Write-Host "Syncing $folder..."
-                # Copy items from source to destination, overwriting logic files
-                # but we keep the filenames of the DESTINATION if they differ.
-                # NOTE: This assumes file structures align.
-                Copy-Item -Path "$src/$folder/*" -Destination "$dst/$folder/" -Force -Recurse
+        
+        # Prefixes to swap inside the code
+        $oldPrefix = "utp"
+        $newPrefix = "jmfeproc"
+        
+        # Syncing Workflows (Flows) and CanvasApps logic
+        $folders = @("Workflows", "CanvasApps")
+        foreach ($f in $folders) {
+            if (Test-Path "$src/$f") {
+                Write-Host "Copying $f folder..."
+                # Force copy overwrites the logic but leaves solution2.xml alone
+                Copy-Item -Path "$src/$f/*" -Destination "$dst/$f/" -Force -Recurse
             }
         }
 
-        Write-Host "Preserving Target Solution Identity..."
-        # We explicitly DO NOT touch $dst/Other/Solution.xml 
-        # We explicitly DO NOT touch $dst/EnvironmentVariableDefinitions/
+        # Recursive Search and Replace inside the logic folders only
+        # This keeps the environment variable names and logical names aligned to the target
+        Write-Host "Translating internal logic references from $oldPrefix to $newPrefix..."
+        Get-ChildItem -Path "$dst/Workflows", "$dst/CanvasApps" -Recurse -Include *.json,*.xml,*.msapp | ForEach-Object {
+            $content = Get-Content $_.FullName -Raw
+            $content -replace "$oldPrefix`_", "$newPrefix`_" | Set-Content $_.FullName -Encoding UTF8
+        }
 
-    # 4. Pack the modified destination folder back into the target zip
-    - name: Pack Target Solution
-      uses: microsoft/powerplatform-actions/pack-solution@v1
+    # 3. Pack and Import
+    - name: Pack Updated Target
+      uses: microsoft/powerplatform-actions/actions/pack-solution@v1
       with:
-        solution-file: 'final_sync.zip'
+        solution-file: 'updated_procurement.zip'
         solution-folder: 'dst_folder'
         solution-type: 'Unmanaged'
 
-    # 5. Import back into the environment
-    - name: Import Updated Solution
-      uses: microsoft/powerplatform-actions/import-solution@v1
+    - name: Import to Environment
+      uses: microsoft/powerplatform-actions/actions/import-solution@v1
       with:
-        environment-url: ${{ env.ENVIRONMENT_URL }}
-        solution-file: 'final_sync.zip'
+        environment-url: ${{ secrets.ENV_URL }}
+        solution-file: 'updated_procurement.zip'
         force-overwrite: true
