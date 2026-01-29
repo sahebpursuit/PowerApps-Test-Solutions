@@ -10,7 +10,7 @@ jobs:
 
     # Corrected path: added /actions/ to the uses string
     - name: Install Power Platform Tools
-      uses: microsoft/powerplatform-actions/actions/install-tools@v1
+      uses: microsoft/powerplatform-actions/actions-install@v1
 
     # 1. Export and Unpack (Source & Target)
     - name: Export Solutions
