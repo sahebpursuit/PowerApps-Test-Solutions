@@ -20,7 +20,7 @@ jobs:
         pac solution export --url ${{ secrets.ENV_URL }} --name ITSTCOE_JMFE_UATNext_Procurement_Solution --outputfile target.zip
 
     - name: Unpack Solutions
-      uses: microsoft/powerplatform-actions/actions/unpack-solution@v1
+      uses: microsoft/powerplatform-actions/unpack-solution@v1
       with:
         solution-file: 'source.zip'
         solution-folder: 'src_folder'
