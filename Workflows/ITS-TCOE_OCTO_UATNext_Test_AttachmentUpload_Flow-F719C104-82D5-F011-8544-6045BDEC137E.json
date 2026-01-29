@@ -1,0 +1,155 @@
+{
+  "properties": {
+    "connectionReferences": {},
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "ITS-TCOE_OCTO_UATNext_Test_Host (utp_ITSTCOE_OCTO_UATNext_Test_Host)": {
+          "defaultValue": "octo-api-dev.jmfamily.com",
+          "type": "String",
+          "metadata": {
+            "schemaName": "utp_ITSTCOE_OCTO_UATNext_Test_Host",
+            "description": "Store the host url"
+          }
+        }
+      },
+      "triggers": {
+        "manual": {
+          "metadata": {
+            "operationMetadataId": "34935d82-849a-40f7-896e-2ba3aece1bc3"
+          },
+          "type": "Request",
+          "kind": "PowerAppV2",
+          "inputs": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "title": "FileName",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_2": {
+                  "title": "FileContent",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_3": {
+                  "title": "FileType",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_4": {
+                  "title": "ProjectId",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_5": {
+                  "title": "ObjectType",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                },
+                "text_1": {
+                  "title": "ObjectId",
+                  "type": "string",
+                  "x-ms-dynamically-added": true,
+                  "description": "Please enter your input",
+                  "x-ms-content-hint": "TEXT"
+                }
+              },
+              "required": [
+                "text",
+                "text_2",
+                "text_3",
+                "text_4",
+                "text_5",
+                "text_1"
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Compose": {
+          "runAfter": {},
+          "metadata": {
+            "operationMetadataId": "021578c4-0595-4004-9757-990c477cfbbf"
+          },
+          "type": "Compose",
+          "inputs": "@base64ToBinary(triggerBody()['text_2'])"
+        },
+        "HTTP": {
+          "runAfter": {
+            "Compose": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "5b2c217b-e36d-4ef3-9875-118bea001cd5"
+          },
+          "type": "Http",
+          "inputs": {
+            "method": "POST",
+            "uri": "https://@{parameters('ITS-TCOE_OCTO_UATNext_Test_Host (utp_ITSTCOE_OCTO_UATNext_Test_Host)')}/jmfeproc/projects/@{triggerBody()['text_4']}/@{triggerBody()?['text_5']}/@{triggerBody()['text_1']}/blob-handles",
+            "headers": {
+              "File-Name": "@triggerBody()['text']",
+              "Content-Type": "@triggerBody()['text_3']"
+            },
+            "body": "@outputs('Compose')"
+          }
+        },
+        "Respond_to_a_Power_App_or_flow": {
+          "runAfter": {
+            "HTTP": [
+              "Succeeded"
+            ]
+          },
+          "metadata": {
+            "operationMetadataId": "cff7aead-3859-4463-abc4-7cb0c4dad34d"
+          },
+          "type": "Response",
+          "kind": "PowerApp",
+          "inputs": {
+            "statusCode": 200,
+            "body": {
+              "status_code": "@outputs('HTTP')['statusCode']",
+              "file_name": "@triggerBody()['text']"
+            },
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status_code": {
+                  "title": "Status code",
+                  "x-ms-dynamically-added": true,
+                  "type": "number"
+                },
+                "file_name": {
+                  "title": "File Name",
+                  "x-ms-dynamically-added": true,
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "templateName": ""
+  },
+  "schemaVersion": "1.0.0.0"
+}

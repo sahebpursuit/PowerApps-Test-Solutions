@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="utp_ITSTCOE_OCTO_UATNext_Test_qTestModuleID">
+  <defaultvalue>52919770</defaultvalue>
+  <description default="Store module idddddd">
+    <label description="Store module idddddd" languagecode="1033" />
+  </description>
+  <displayname default="ITS-TCOE_OCTO_UATNext_Test_qTestModuleID">
+    <label description="ITS-TCOE_OCTO_UATNext_Test_qTestModuleID" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

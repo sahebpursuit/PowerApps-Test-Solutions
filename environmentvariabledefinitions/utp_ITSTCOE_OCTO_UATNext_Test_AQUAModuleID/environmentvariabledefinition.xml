@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="utp_ITSTCOE_OCTO_UATNext_Test_AQUAModuleID">
+  <defaultvalue>52919770</defaultvalue>
+  <description default="Module Id for populating &quot;Module&quot; field in defects, allowing for AQUA sync updated by saheb">
+    <label description="Module Id for populating &quot;Module&quot; field in defects, allowing for AQUA sync updated by saheb" languagecode="1033" />
+  </description>
+  <displayname default="ITS-TCOE_OCTO_UATNext_Test_AQUAModuleID">
+    <label description="ITS-TCOE_OCTO_UATNext_Test_AQUAModuleID" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

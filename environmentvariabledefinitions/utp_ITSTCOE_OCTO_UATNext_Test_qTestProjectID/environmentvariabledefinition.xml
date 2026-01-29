@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="utp_ITSTCOE_OCTO_UATNext_Test_qTestProjectID">
+  <defaultvalue>133332</defaultvalue>
+  <description default="Store project id">
+    <label description="Store project id" languagecode="1033" />
+  </description>
+  <displayname default="ITS-TCOE_OCTO_UATNext_Test_qTestProjectID">
+    <label description="ITS-TCOE_OCTO_UATNext_Test_qTestProjectID" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000000</type>
+</environmentvariabledefinition>

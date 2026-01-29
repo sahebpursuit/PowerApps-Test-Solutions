@@ -1,0 +1,161 @@
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26012.140" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26012.00140">
+  <Entities></Entities>
+  <Roles></Roles>
+  <Workflows>
+    <Workflow WorkflowId="{964a6410-48f1-f011-8407-000d3af0609a}" Name="Sounak Attachment Download">
+      <JsonFileName>/Workflows/SounakAttachmentDownload-964A6410-48F1-F011-8407-000D3AF0609A.json</JsonFileName>
+      <Type>1</Type>
+      <Subprocess>0</Subprocess>
+      <Category>5</Category>
+      <Mode>0</Mode>
+      <Scope>4</Scope>
+      <OnDemand>0</OnDemand>
+      <TriggerOnCreate>0</TriggerOnCreate>
+      <TriggerOnDelete>0</TriggerOnDelete>
+      <AsyncAutodelete>0</AsyncAutodelete>
+      <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+      <StateCode>1</StateCode>
+      <StatusCode>2</StatusCode>
+      <RunAs>1</RunAs>
+      <IsTransacted>1</IsTransacted>
+      <IntroducedVersion>3.4.0.1</IntroducedVersion>
+      <IsCustomizable>1</IsCustomizable>
+      <BusinessProcessType>0</BusinessProcessType>
+      <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+      <ModernFlowType>0</ModernFlowType>
+      <PrimaryEntity>none</PrimaryEntity>
+      <LocalizedNames>
+        <LocalizedName languagecode="1033" description="Sounak Attachment Download" />
+      </LocalizedNames>
+    </Workflow>
+    <Workflow WorkflowId="{f719c104-82d5-f011-8544-6045bdec137e}" Name="ITS-TCOE_OCTO_UATNext_Test_AttachmentUpload_Flow">
+      <JsonFileName>/Workflows/ITS-TCOE_OCTO_UATNext_Test_AttachmentUpload_Flow-F719C104-82D5-F011-8544-6045BDEC137E.json</JsonFileName>
+      <Type>1</Type>
+      <Subprocess>0</Subprocess>
+      <Category>5</Category>
+      <Mode>0</Mode>
+      <Scope>4</Scope>
+      <OnDemand>0</OnDemand>
+      <TriggerOnCreate>0</TriggerOnCreate>
+      <TriggerOnDelete>0</TriggerOnDelete>
+      <AsyncAutodelete>0</AsyncAutodelete>
+      <SyncWorkflowLogOnFailure>0</SyncWorkflowLogOnFailure>
+      <StateCode>1</StateCode>
+      <StatusCode>2</StatusCode>
+      <RunAs>1</RunAs>
+      <IsTransacted>1</IsTransacted>
+      <IntroducedVersion>3.2.0.0</IntroducedVersion>
+      <IsCustomizable>1</IsCustomizable>
+      <IsCustomProcessingStepAllowedForOtherPublishers>1</IsCustomProcessingStepAllowedForOtherPublishers>
+      <ModernFlowType>0</ModernFlowType>
+      <PrimaryEntity>none</PrimaryEntity>
+      <LocalizedNames>
+        <LocalizedName languagecode="1033" description="ITS-TCOE_OCTO_UATNext_Test_AttachmentUpload_Flow" />
+      </LocalizedNames>
+    </Workflow>
+  </Workflows>
+  <FieldSecurityProfiles></FieldSecurityProfiles>
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls />
+  <EntityDataProviders />
+  <CanvasApps>
+    <CanvasApp>
+      <Name>utp_itstcoeoctoqtestcoordinatortestapp_867f5</Name>
+      <AppVersion>2026-01-15T03:30:57Z</AppVersion>
+      <Status>Ready</Status>
+      <CreatedByClientVersion>3.25121.7.0</CreatedByClientVersion>
+      <MinClientVersion>3.25121.7.0</MinClientVersion>
+      <Tags>{"primaryDeviceWidth":"1366","primaryDeviceHeight":"50","supportsPortrait":"true","supportsLandscape":"true","primaryFormFactor":"Tablet","showStatusBar":"false","publisherVersion":"3.25121.7","minimumRequiredApiVersion":"2.2.0","hasComponent":"true","hasUnlockedComponent":"true","isUnifiedRootApp":"false","sienaVersion":"20251223T091716Z-3.25121.7.0"}</Tags>
+      <IsCdsUpgraded>0</IsCdsUpgraded>
+      <GalleryItemId xsi:nil="true"></GalleryItemId>
+      <BackgroundColor>RGBA(0,176,240,1)</BackgroundColor>
+      <DisplayName>ITS-TCOE_OCTO_qTest_Coordinator_Test_App</DisplayName>
+      <Description></Description>
+      <CommitMessage></CommitMessage>
+      <Publisher></Publisher>
+      <AuthorizationReferences>[]</AuthorizationReferences>
+      <ConnectionReferences>{"be5a6307-117a-4af5-846e-f0a45159cc12":{"id":"/providers/Microsoft.PowerApps/apis/shared_utp-5fits-2dtcoe-5focto-5fuatnexttestelog-5fcbab90f57d629606","displayName":"ITS-TCOE_OCTO_UATNextTestELog","iconUri":"https://pafeblobprodpn.blob.core.windows.net/20260114t000000za8ff219d9e4349bbb78f0422e0eb49e6/utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestelog_iconblob.Png?skoid=1b4c3c9e-b403-4e0f-9933-e50756645683&amp;sktid=975f013f-7f24-47e8-a7d3-abc4752bf346&amp;skt=2026-01-14T01%3A00%3A00Z&amp;ske=2026-01-21T01%3A00%3A00Z&amp;sks=b&amp;skv=2025-01-05&amp;sv=2025-01-05&amp;spr=https&amp;st=2026-01-14T01%3A41%3A41Z&amp;se=2026-01-18T08%3A00%3A00Z&amp;sr=c&amp;sp=rl&amp;scid=d85de149-2add-410a-9e54-28fa55b827b5&amp;sig=9fH4JK7YezJ5P%2FiAFUfPQWANgQfYEKmwHurTCEenuww%3D","dataSources":["ITS-TCOE_OCTO_UATNextTestELog"],"dependencies":[],"dependents":[],"parameterHints":{},"parameterHintsV2":{},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{},"apiTier":"Standard","actions":["ExecuteTestRun"],"customApiLogicalName":"utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestelog","isCustomApiSolutionAware":true},"6724ae82-bb42-4b01-93e5-a9a9584ed39b":{"id":"/providers/Microsoft.PowerApps/apis/shared_utp-5fits-2dtcoe-5focto-5fuatnexttestmain-5fcbab90f57d629606","displayName":"ITS-TCOE_OCTO_UATNextTestMain","iconUri":"https://pafeblobprodpn.blob.core.windows.net/20260114t000000zb1b1606ad98747858121bb83444fc678/utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestmain_iconblob.Png?skoid=1b4c3c9e-b403-4e0f-9933-e50756645683&amp;sktid=975f013f-7f24-47e8-a7d3-abc4752bf346&amp;skt=2026-01-14T01%3A00%3A00Z&amp;ske=2026-01-21T01%3A00%3A00Z&amp;sks=b&amp;skv=2025-01-05&amp;sv=2025-01-05&amp;spr=https&amp;st=2026-01-14T01%3A41%3A54Z&amp;se=2026-01-18T08%3A00%3A00Z&amp;sr=c&amp;sp=rl&amp;scid=d85de149-2add-410a-9e54-28fa55b827b5&amp;sig=nDRUQKgafiZyaU21yNOTMEloWN3pSfelCOXrPnzAR7U%3D","dataSources":["ITS-TCOE_OCTO_UATNextTestMain"],"dependencies":[],"dependents":[],"parameterHints":{},"parameterHintsV2":{},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{},"apiTier":"Standard","actions":["GetAProject","GetFieldId","ListOfAllowedValue","Search","ApproveTestcase","GetObjectLink","GetTestLog","CreateTestlog","UpdateTestrun"],"customApiLogicalName":"utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestmain","isCustomApiSolutionAware":true}}</ConnectionReferences>
+      <DatabaseReferences>{"default.cds":{"databaseDetails":{"referenceType":"Environmental","environmentName":"default.cds","overrideValues":{"status":"NotSpecified","environmentVariableName":""}},"dataSources":{"Environment Variable Values":{"entitySetName":"environmentvariablevalues","logicalName":"environmentvariablevalue"},"Environment Variable Definitions":{"entitySetName":"environmentvariabledefinitions","logicalName":"environmentvariabledefinition"},"Users":{"entitySetName":"systemusers","logicalName":"systemuser"}}}}</DatabaseReferences>
+      <AppComponents>[]</AppComponents>
+      <AppComponentDependencies>[]</AppComponentDependencies>
+      <CanConsumeAppPass>1</CanConsumeAppPass>
+      <CanvasAppType>0</CanvasAppType>
+      <BypassConsent>0</BypassConsent>
+      <EmbeddedApp xsi:nil="true"></EmbeddedApp>
+      <IntroducedVersion>1.0</IntroducedVersion>
+      <CdsDependencies>{"cdsdependencies":[{"componenttype":372,"logicalname":"utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestelog","componenttypeplatformname":"connector"},{"componenttype":372,"logicalname":"utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestmain","componenttypeplatformname":"connector"},{"componenttype":1,"logicalname":"environmentvariablevalue"},{"componenttype":1,"logicalname":"environmentvariabledefinition"},{"componenttype":1,"logicalname":"systemuser"}]}</CdsDependencies>
+      <IsCustomizable>1</IsCustomizable>
+      <BackgroundImageUri>/CanvasApps/utp_itstcoeoctoqtestcoordinatortestapp_867f5_BackgroundImageUri</BackgroundImageUri>
+      <DocumentUri>/CanvasApps/utp_itstcoeoctoqtestcoordinatortestapp_867f5_DocumentUri.msapp</DocumentUri>
+      <AdditionalUris>
+        <AdditionalUri>/CanvasApps/utp_itstcoeoctoqtestcoordinatortestapp_867f5_AdditionalUris0_identity.json</AdditionalUri>
+      </AdditionalUris>
+    </CanvasApp>
+    <CanvasApp>
+      <Name>utp_itstcoeoctouatnexttestapp_05cec</Name>
+      <AppVersion>2026-01-15T03:30:58Z</AppVersion>
+      <Status>Ready</Status>
+      <CreatedByClientVersion>3.25122.8.0</CreatedByClientVersion>
+      <MinClientVersion>3.25122.8.0</MinClientVersion>
+      <Tags>{"primaryDeviceWidth":"1366","primaryDeviceHeight":"50","sienaVersion":"20260109T081805Z-3.25122.8.0","deviceCapabilities":"","supportsPortrait":"false","supportsLandscape":"true","primaryFormFactor":"Tablet","publisherVersion":"3.25122.8","minimumRequiredApiVersion":"2.2.0","hasComponent":"true","hasUnlockedComponent":"true","isUnifiedRootApp":"false","showStatusBar":"false","offlineLargeFilesSupport":"false","coauthoringEnabled":"false","multipleWritersEnabled":"false","acceptedCoauthoringTerms":"false"}</Tags>
+      <IsCdsUpgraded>0</IsCdsUpgraded>
+      <GalleryItemId xsi:nil="true"></GalleryItemId>
+      <BackgroundColor>RGBA(0,176,240,1)</BackgroundColor>
+      <DisplayName>ITS-TCOE_OCTO_UATNext_Test_App</DisplayName>
+      <Description></Description>
+      <CommitMessage></CommitMessage>
+      <Publisher></Publisher>
+      <AuthorizationReferences>[]</AuthorizationReferences>
+      <ConnectionReferences>{"f86c798f-d18c-4e0f-9f4f-07aa4f6c3da9":{"id":"/providers/Microsoft.PowerApps/apis/shared_utp-5fits-2dtcoe-5focto-5fuatnexttestelog-5fcbab90f57d629606","displayName":"ITS-TCOE_OCTO_UATNextTestELog","iconUri":"https://pafeblobprodpn.blob.core.windows.net/20260114t000000za8ff219d9e4349bbb78f0422e0eb49e6/utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestelog_iconblob.Png?skoid=1b4c3c9e-b403-4e0f-9933-e50756645683&amp;sktid=975f013f-7f24-47e8-a7d3-abc4752bf346&amp;skt=2026-01-14T01%3A00%3A00Z&amp;ske=2026-01-21T01%3A00%3A00Z&amp;sks=b&amp;skv=2025-01-05&amp;sv=2025-01-05&amp;spr=https&amp;st=2026-01-14T01%3A41%3A41Z&amp;se=2026-01-18T08%3A00%3A00Z&amp;sr=c&amp;sp=rl&amp;scid=d85de149-2add-410a-9e54-28fa55b827b5&amp;sig=9fH4JK7YezJ5P%2FiAFUfPQWANgQfYEKmwHurTCEenuww%3D","dataSources":["ITS-TCOE_OCTO_UATNextTestELog"],"dependencies":[],"dependents":[],"parameterHints":{},"parameterHintsV2":{},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{},"apiTier":"Standard","actions":["ExecuteTestRun"],"customApiLogicalName":"utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestelog","isCustomApiSolutionAware":true},"4c23e359-24ed-4858-9674-41d94377dc81":{"id":"/providers/Microsoft.PowerApps/apis/shared_utp-5fits-2dtcoe-5focto-5fuatnexttestmain-5fcbab90f57d629606","displayName":"ITS-TCOE_OCTO_UATNextTestMain","iconUri":"https://pafeblobprodpn.blob.core.windows.net/20260114t000000zb1b1606ad98747858121bb83444fc678/utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestmain_iconblob.Png?skoid=1b4c3c9e-b403-4e0f-9933-e50756645683&amp;sktid=975f013f-7f24-47e8-a7d3-abc4752bf346&amp;skt=2026-01-14T01%3A00%3A00Z&amp;ske=2026-01-21T01%3A00%3A00Z&amp;sks=b&amp;skv=2025-01-05&amp;sv=2025-01-05&amp;spr=https&amp;st=2026-01-14T01%3A41%3A54Z&amp;se=2026-01-18T08%3A00%3A00Z&amp;sr=c&amp;sp=rl&amp;scid=d85de149-2add-410a-9e54-28fa55b827b5&amp;sig=nDRUQKgafiZyaU21yNOTMEloWN3pSfelCOXrPnzAR7U%3D","dataSources":["ITS-TCOE_OCTO_UATNextTestMain"],"dependencies":[],"dependents":[],"parameterHints":{},"parameterHintsV2":{},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{},"apiTier":"Standard","actions":["GetAProject","GetFieldId","GetAModule","ListOfAllowedValue","GetARelease","GetTestcycle","GetModule","Search","GetAtestsuite","GetObjectLink","GetTestcase","CreateObjectLink","UpdateTestlogStatus","GetTestLog","CreateTestlog","UpdateTestrun","RemoveObjectLink","CreateTestcase","CreateDefect","CreateDefectComment","GetDefect","GetAllCommentsOfADefect","GetAttachments","UpdateTestcase","ApproveTestcase","DeleteTeststep","GetTestStep","CreateTeststep","UpdateDefect"],"customApiLogicalName":"utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestmain","isCustomApiSolutionAware":true},"1005c25e-1c24-4b69-bbb9-f2babc93486a":{"id":"/providers/microsoft.powerapps/apis/shared_logicflows","displayName":"Logic flows","iconUri":"https://conn-afd-prod-endpoint-bmc9bqahasf3grgk.b01.azurefd.net/v1.0.1774/1.0.1774.4397/logicflows/icon.png","dataSources":["ITS-TCOE_OCTO_UATNext_Test_AttachmentUpload_Flow"],"dependencies":[],"dependents":[],"parameterHints":{"workflowName":{"value":"dc133c93-d248-4a60-b43f-cc6a6469b622"},"workflowEntityId":{"value":"f719c104-82d5-f011-8544-6045bdec137e"},"workflowDisplayName":{"value":"ITS-TCOE_OCTO_UATNext_Test_AttachmentUpload_Flow"}},"parameterHintsV2":{"workflowName":{"value":"dc133c93-d248-4a60-b43f-cc6a6469b622"},"workflowEntityId":{"value":"f719c104-82d5-f011-8544-6045bdec137e"},"workflowDisplayName":{"value":"ITS-TCOE_OCTO_UATNext_Test_AttachmentUpload_Flow"}},"isOnPremiseConnection":false,"bypassConsent":false,"dataSets":{},"apiTier":"Standard","actions":["Run"],"isCustomApiSolutionAware":false}}</ConnectionReferences>
+      <DatabaseReferences>{"default.cds":{"databaseDetails":{"referenceType":"Environmental","environmentName":"default.cds","overrideValues":{"status":"NotSpecified","environmentVariableName":""}},"dataSources":{"Users":{"entitySetName":"systemusers","logicalName":"systemuser"},"Environment Variable Definitions":{"entitySetName":"environmentvariabledefinitions","logicalName":"environmentvariabledefinition"},"Environment Variable Values":{"entitySetName":"environmentvariablevalues","logicalName":"environmentvariablevalue"}}}}</DatabaseReferences>
+      <AppComponents>[]</AppComponents>
+      <AppComponentDependencies>[]</AppComponentDependencies>
+      <CanConsumeAppPass>1</CanConsumeAppPass>
+      <CanvasAppType>0</CanvasAppType>
+      <BypassConsent>0</BypassConsent>
+      <AdminControlBypassConsent>0</AdminControlBypassConsent>
+      <EmbeddedApp xsi:nil="true"></EmbeddedApp>
+      <IntroducedVersion>1.0</IntroducedVersion>
+      <CdsDependencies>{"cdsdependencies":[{"componenttype":372,"logicalname":"utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestelog","componenttypeplatformname":"connector"},{"componenttype":372,"logicalname":"utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestmain","componenttypeplatformname":"connector"},{"componenttype":29,"dependencyid":"f719c104-82d5-f011-8544-6045bdec137e","componenttypeplatformname":"Workflow"},{"componenttype":1,"logicalname":"systemuser"},{"componenttype":1,"logicalname":"environmentvariabledefinition"},{"componenttype":1,"logicalname":"environmentvariablevalue"}]}</CdsDependencies>
+      <IsCustomizable>1</IsCustomizable>
+      <BackgroundImageUri>/CanvasApps/utp_itstcoeoctouatnexttestapp_05cec_BackgroundImageUri</BackgroundImageUri>
+      <DocumentUri>/CanvasApps/utp_itstcoeoctouatnexttestapp_05cec_DocumentUri.msapp</DocumentUri>
+      <AdditionalUris>
+        <AdditionalUri>/CanvasApps/utp_itstcoeoctouatnexttestapp_05cec_AdditionalUris0_identity.json</AdditionalUri>
+      </AdditionalUris>
+    </CanvasApp>
+  </CanvasApps>
+  <Connectors>
+    <Connector>
+      <connectorid>c077a5b2-b878-45f1-b64b-6f5132282430</connectorid>
+      <description>Custom Connector used for UAT Application</description>
+      <displayname>ITS-TCOE_OCTO_UATNextTestELog</displayname>
+      <iconbrandcolor>#007ee5</iconbrandcolor>
+      <name>utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestelog</name>
+      <connectortype>1</connectortype>
+      <openapidefinition>/Connector/utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestelog_openapidefinition.json</openapidefinition>
+      <connectionparameters>/Connector/utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestelog_connectionparameters.json</connectionparameters>
+      <policytemplateinstances>/Connector/utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestelog_policytemplateinstances.json</policytemplateinstances>
+      <iconblob>/Connector/utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestelog_iconblob.Png</iconblob>
+    </Connector>
+    <Connector>
+      <connectorid>aa964f82-7cf5-411e-b922-a0b66d940be8</connectorid>
+      <description>api to handle all qtest operation</description>
+      <displayname>ITS-TCOE_OCTO_UATNextTestMain</displayname>
+      <iconbrandcolor>#007ee5</iconbrandcolor>
+      <name>utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestmain</name>
+      <connectortype>1</connectortype>
+      <openapidefinition>/Connector/utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestmain_openapidefinition.json</openapidefinition>
+      <connectionparameters>/Connector/utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestmain_connectionparameters.json</connectionparameters>
+      <policytemplateinstances>/Connector/utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestmain_policytemplateinstances.json</policytemplateinstances>
+      <iconblob>/Connector/utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestmain_iconblob.Png</iconblob>
+    </Connector>
+  </Connectors>
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+</ImportExportXml>

@@ -1,0 +1,14 @@
+<environmentvariabledefinition schemaname="utp_ITSTCOE_OCTO_UATNext_Test_ModuleController">
+  <defaultvalue>no</defaultvalue>
+  <description default="Use this to determine whether the module selection dropdown will be. blank or prefilled with the data.">
+    <label description="Use this to determine whether the module selection dropdown will be. blank or prefilled with the data." languagecode="1033" />
+  </description>
+  <displayname default="ITS-TCOE_OCTO_UATNext_Test_ModuleController">
+    <label description="ITS-TCOE_OCTO_UATNext_Test_ModuleController" languagecode="1033" />
+  </displayname>
+  <introducedversion>1.0.0.0</introducedversion>
+  <iscustomizable>1</iscustomizable>
+  <isrequired>0</isrequired>
+  <secretstore>0</secretstore>
+  <type>100000002</type>
+</environmentvariabledefinition>

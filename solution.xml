@@ -1,0 +1,116 @@
+<ImportExportXml version="9.2.26012.140" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" OrganizationVersion="9.2.26012.140" OrganizationSchemaType="Standard" CRMServerServiceabilityVersion="9.2.26012.00140">
+  <SolutionManifest>
+    <UniqueName>ITSTCOE_OCTO_UATNext_Test_Solution</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="ITS-TCOE_OCTO_UATNext_Test_Solution" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions />
+    <Version>3.4.0.2</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>ITS_TCOE_OCTO_UATNext_Test_Publisher</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="ITS_TCOE_OCTO_UATNext_Test_Publisher" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="This publisher is used for the prod test solution" languagecode="1033" />
+      </Descriptions>
+      <EMailAddress xsi:nil="true"></EMailAddress>
+      <SupportingWebsiteUrl xsi:nil="true"></SupportingWebsiteUrl>
+      <CustomizationPrefix>utp</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>94369</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+        <Address>
+          <AddressNumber>2</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City xsi:nil="true"></City>
+          <County xsi:nil="true"></County>
+          <Country xsi:nil="true"></Country>
+          <Fax xsi:nil="true"></Fax>
+          <FreightTermsCode xsi:nil="true"></FreightTermsCode>
+          <ImportSequenceNumber xsi:nil="true"></ImportSequenceNumber>
+          <Latitude xsi:nil="true"></Latitude>
+          <Line1 xsi:nil="true"></Line1>
+          <Line2 xsi:nil="true"></Line2>
+          <Line3 xsi:nil="true"></Line3>
+          <Longitude xsi:nil="true"></Longitude>
+          <Name xsi:nil="true"></Name>
+          <PostalCode xsi:nil="true"></PostalCode>
+          <PostOfficeBox xsi:nil="true"></PostOfficeBox>
+          <PrimaryContactName xsi:nil="true"></PrimaryContactName>
+          <ShippingMethodCode>1</ShippingMethodCode>
+          <StateOrProvince xsi:nil="true"></StateOrProvince>
+          <Telephone1 xsi:nil="true"></Telephone1>
+          <Telephone2 xsi:nil="true"></Telephone2>
+          <Telephone3 xsi:nil="true"></Telephone3>
+          <TimeZoneRuleVersionNumber xsi:nil="true"></TimeZoneRuleVersionNumber>
+          <UPSZone xsi:nil="true"></UPSZone>
+          <UTCOffset xsi:nil="true"></UTCOffset>
+          <UTCConversionTimeZoneCode xsi:nil="true"></UTCConversionTimeZoneCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="29" id="{964a6410-48f1-f011-8407-000d3af0609a}" behavior="0" />
+      <RootComponent type="29" id="{f719c104-82d5-f011-8544-6045bdec137e}" behavior="0" />
+      <RootComponent type="300" schemaName="utp_itstcoeoctoqtestcoordinatortestapp_867f5" behavior="0" />
+      <RootComponent type="300" schemaName="utp_itstcoeoctouatnexttestapp_05cec" behavior="0" />
+      <RootComponent type="372" id="{c077a5b2-b878-45f1-b64b-6f5132282430}" schemaName="utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestelog" behavior="0" />
+      <RootComponent type="372" id="{aa964f82-7cf5-411e-b922-a0b66d940be8}" schemaName="utp_5Fits-2Dtcoe-5Focto-5Fuatnexttestmain" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="environmentvariabledefinition" displayName="Environment Variable Definition" solution="EnvironmentVariables (1.0.2406.4)">
+          <package appName="EnvironmentVariables" version="1.0.2406.4">EnvironmentVariablesSolutionAnchor (1.0.2406.4)</package>
+        </Required>
+        <Dependent type="300" schemaName="utp_itstcoeoctoqtestcoordinatortestapp_867f5" displayName="ITS-TCOE_OCTO_qTest_Coordinator_Test_App" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="environmentvariabledefinition" displayName="Environment Variable Definition" solution="EnvironmentVariables (1.0.2406.4)">
+          <package appName="EnvironmentVariables" version="1.0.2406.4">EnvironmentVariablesSolutionAnchor (1.0.2406.4)</package>
+        </Required>
+        <Dependent type="300" schemaName="utp_itstcoeoctouatnexttestapp_05cec" displayName="ITS-TCOE_OCTO_UATNext_Test_App" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="environmentvariablevalue" displayName="Environment Variable Value" solution="EnvironmentVariables (1.0.2406.4)">
+          <package appName="EnvironmentVariables" version="1.0.2406.4">EnvironmentVariablesSolutionAnchor (1.0.2406.4)</package>
+        </Required>
+        <Dependent type="300" schemaName="utp_itstcoeoctoqtestcoordinatortestapp_867f5" displayName="ITS-TCOE_OCTO_qTest_Coordinator_Test_App" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="environmentvariablevalue" displayName="Environment Variable Value" solution="EnvironmentVariables (1.0.2406.4)">
+          <package appName="EnvironmentVariables" version="1.0.2406.4">EnvironmentVariablesSolutionAnchor (1.0.2406.4)</package>
+        </Required>
+        <Dependent type="300" schemaName="utp_itstcoeoctouatnexttestapp_05cec" displayName="ITS-TCOE_OCTO_UATNext_Test_App" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>
