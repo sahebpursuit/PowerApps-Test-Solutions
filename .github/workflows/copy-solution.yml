@@ -17,7 +17,8 @@ jobs:
       uses: microsoft/powerplatform-actions/export-solution@v1
       with:
         environment-url: ${{ secrets.ENV_URL }}
-        app-id: ${{ secrets.POWER_PLATFORM_APP_ID }}
+        # app-id: ${{ secrets.POWER_PLATFORM_APP_ID }}
+        app-id: 'ec8ed0d2-7ddc-4113-b811-c762d5cfbe3a'
         client-secret: ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }}
         tenant-id: ${{ secrets.POWER_PLATFORM_TENANT_ID }}
         solution-name: 'ITSTCOE_OCTO_UATNext_Test_Solution'
@@ -27,7 +28,7 @@ jobs:
       uses: microsoft/powerplatform-actions/export-solution@v1
       with:
         environment-url: ${{ secrets.ENV_URL }}
-        app-id: ${{ secrets.POWER_PLATFORM_APP_ID }}
+        app-id: 'ec8ed0d2-7ddc-4113-b811-c762d5cfbe3a'
         client-secret: ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }}
         tenant-id: ${{ secrets.POWER_PLATFORM_TENANT_ID }}
         solution-name: 'ITSTCOE_JMFE_UATNext_Procurement_Solution'
@@ -87,7 +88,7 @@ jobs:
       uses: microsoft/powerplatform-actions/import-solution@v1
       with:
         environment-url: ${{ secrets.ENV_URL }}
-        app-id: ${{ secrets.POWER_PLATFORM_APP_ID }}
+        app-id: 'ec8ed0d2-7ddc-4113-b811-c762d5cfbe3a'
         client-secret: ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }}
         tenant-id: ${{ secrets.POWER_PLATFORM_TENANT_ID }}
         solution-file: 'updated_procurement.zip'
