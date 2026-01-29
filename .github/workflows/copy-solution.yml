@@ -11,6 +11,13 @@ jobs:
     # Corrected path: added /actions/ to the uses string
     - name: Install Power Platform Tools
       uses: microsoft/powerplatform-actions/actions-install@v1
+
+    - name: Verify Identity
+      shell: pwsh
+      run: |
+        pac auth list
+        # This will fail fast if the permissions are wrong, giving us more detail
+        pac org who --url ${{ secrets.ENV_URL }}
     
 # 1. Export Source and Target using official Actions (handles 'pac' automatically)
     - name: Export Source Solution
