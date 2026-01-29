@@ -27,7 +27,7 @@ jobs:
         solution-type: 'Unmanaged'
 
     - name: Unpack Target
-      uses: microsoft/powerplatform-actions/actions/unpack-solution@v1
+      uses: microsoft/powerplatform-actions/unpack-solution@v1
       with:
         solution-file: 'target.zip'
         solution-folder: 'dst_folder'
@@ -64,14 +64,14 @@ jobs:
 
     # 3. Pack and Import
     - name: Pack Updated Target
-      uses: microsoft/powerplatform-actions/actions/pack-solution@v1
+      uses: microsoft/powerplatform-actions/pack-solution@v1
       with:
         solution-file: 'updated_procurement.zip'
         solution-folder: 'dst_folder'
         solution-type: 'Unmanaged'
 
     - name: Import to Environment
-      uses: microsoft/powerplatform-actions/actions/import-solution@v1
+      uses: microsoft/powerplatform-actions/import-solution@v1
       with:
         environment-url: ${{ secrets.ENV_URL }}
         solution-file: 'updated_procurement.zip'
