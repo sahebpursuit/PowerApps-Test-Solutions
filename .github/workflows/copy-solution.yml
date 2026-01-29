@@ -1,79 +1,78 @@
-name: Copy PowerApp Solution
-
+name: Sync-Solution-Logic-Only
 on:
   workflow_dispatch:
 
 jobs:
-  copy-solution:
+  sync-logic:
     runs-on: windows-latest
+    env:
+      SOURCE_NAME: 'ITSTCOE_OCTO_UATNext_Test_Solution'
+      TARGET_NAME: 'ITSTCOE_JMFE_UATNext_Procurement_Solution'
+      ENVIRONMENT_URL: ${{ secrets.ENV_URL }}
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
+    - uses: actions/checkout@v4
 
-    - name: Install Power Platform CLI
-      uses: microsoft/powerplatform-actions/actions-install@v1
+    - name: Install Power Platform Tools
+      uses: microsoft/powerplatform-actions/install-tools@v1
 
-    - name: Login to Power Platform
-      run: |
-        pac auth create `
-          --tenant ${{ secrets.POWER_PLATFORM_TENANT_ID }} `
-          --clientId ${{ secrets.POWER_PLATFORM_APP_ID }} `
-          --clientSecret ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }} `
-          --environment ${{ secrets.ENV_URL }}
-    - name: Export solution
-      run: |
-        pac solution export `
-          --name MainSolution `
-          --path out/MainSolution.zip `
-          --managed false
-    - name: Unpack solution
-      run: |
-        pac solution unpack `
-          --zipfile out/MainSolution.zip `
-          --folder solution-src `
-          --packagetype Both
-    - name: Rename solution
-      shell: pwsh
-      run: |
-        (Get-Content solution-src/Other/Solution.xml) `
-        -replace 'MainSolution', 'MainSolution_Copy' |
-        Set-Content solution-src/Other/Solution.xml
-    - name: Rename flows
-      shell: pwsh
-      run: |
-        Get-ChildItem solution-src/Workflows -Filter *.json | ForEach-Object {
-          (Get-Content $_) `
-          -replace 'Order Flow', 'Order Flow Copy' |
-          Set-Content $_
-        }
-    - name: Rename connectors
-      shell: pwsh
-      run: |
-        Get-ChildItem solution-src/CustomConnectors -Filter *.json | ForEach-Object {
-          (Get-Content $_) `
-          -replace 'OrderAPI', 'OrderAPI_Copy' |
-          Set-Content $_
-        }
-    - name: Change env var value
-      shell: pwsh
-      run: |
-        Get-ChildItem solution-src/EnvironmentVariableValues -Recurse | ForEach-Object {
-          (Get-Content $_) `
-          -replace 'https://api.old.com', 'https://api.new.com' |
-          Set-Content $_
-        }
-    - name: Pack solution
-      run: |
-        pac solution pack `
-          --folder solution-src `
-          --zipfile out/MainSolution_Copy.zip `
-          --packagetype Both
-    - name: Import solution
-      run: |
-        pac solution import `
-          --path out/MainSolution_Copy.zip `
-          --force-overwrite `
-          --activate-plugins
+    # 1. Export both solutions from the environment
+    - name: Export Source Solution
+      uses: microsoft/powerplatform-actions/export-solution@v1
+      with:
+        environment-url: ${{ secrets.ENV_URL }}
+        solution-name: ${{ env.SOURCE_NAME }}
+        solution-output-file: 'source.zip'
 
-          
+    - name: Export Target Solution
+      uses: microsoft/powerplatform-actions/export-solution@v1
+      with:
+        environment-url: ${{ env.ENVIRONMENT_URL }}
+        solution-name: ${{ env.TARGET_NAME }}
+        solution-output-file: 'target.zip'
+
+    # 2. Unpack both to separate folders
+    - name: Unpack Solutions
+      run: |
+        pac solution unpack --zipfile source.zip --folder src_folder
+        pac solution unpack --zipfile target.zip --folder dst_folder
+
+    # 3. PowerShell Script to copy logic but preserve metadata
+    - name: Overlay Logic
+      shell: pwsh
+      run: |
+        $src = "./src_folder"
+        $dst = "./dst_folder"
+
+        # List of folders to sync (Flows, Apps, etc.)
+        $foldersToSync = @("Workflows", "CanvasApps", "WebResources")
+
+        foreach ($folder in $foldersToSync) {
+            if (Test-Path "$src/$folder") {
+                Write-Host "Syncing $folder..."
+                # Copy items from source to destination, overwriting logic files
+                # but we keep the filenames of the DESTINATION if they differ.
+                # NOTE: This assumes file structures align.
+                Copy-Item -Path "$src/$folder/*" -Destination "$dst/$folder/" -Force -Recurse
+            }
+        }
+
+        Write-Host "Preserving Target Solution Identity..."
+        # We explicitly DO NOT touch $dst/Other/Solution.xml 
+        # We explicitly DO NOT touch $dst/EnvironmentVariableDefinitions/
+
+    # 4. Pack the modified destination folder back into the target zip
+    - name: Pack Target Solution
+      uses: microsoft/powerplatform-actions/pack-solution@v1
+      with:
+        solution-file: 'final_sync.zip'
+        solution-folder: 'dst_folder'
+        solution-type: 'Unmanaged'
+
+    # 5. Import back into the environment
+    - name: Import Updated Solution
+      uses: microsoft/powerplatform-actions/import-solution@v1
+      with:
+        environment-url: ${{ env.ENVIRONMENT_URL }}
+        solution-file: 'final_sync.zip'
+        force-overwrite: true
