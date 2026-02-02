@@ -46,26 +46,26 @@ jobs:
         solution-folder: 'dst_folder'
         solution-type: 'Unmanaged'
 
-    # 2. Sync Logic and Translate Prefixes
-    - name: Overlay Logic and Rename Prefixes
-      shell: pwsh
-      run: |
-        $src = "./src_folder"
-        $dst = "./dst_folder"
+    # # 2. Sync Logic and Translate Prefixes
+    # - name: Overlay Logic and Rename Prefixes
+    #   shell: pwsh
+    #   run: |
+    #     $src = "./src_folder"
+    #     $dst = "./dst_folder"
         
-        # Prefixes to swap inside the code
-        $oldPrefix = "utp"
-        $newPrefix = "jmfeproc"
+    #     # Prefixes to swap inside the code
+    #     $oldPrefix = "utp"
+    #     $newPrefix = "jmfeproc"
         
-        # Syncing Workflows (Flows) and CanvasApps logic
-        $folders = @("Workflows", "CanvasApps")
-        foreach ($f in $folders) {
-            if (Test-Path "$src/$f") {
-                Write-Host "Copying $f folder..."
-                # Force copy overwrites the logic but leaves solution2.xml alone
-                Copy-Item -Path "$src/$f/*" -Destination "$dst/$f/" -Force -Recurse
-            }
-        }
+    #     # Syncing Workflows (Flows) and CanvasApps logic
+    #     $folders = @("Workflows", "CanvasApps")
+    #     foreach ($f in $folders) {
+    #         if (Test-Path "$src/$f") {
+    #             Write-Host "Copying $f folder..."
+    #             # Force copy overwrites the logic but leaves solution2.xml alone
+    #             Copy-Item -Path "$src/$f/*" -Destination "$dst/$f/" -Force -Recurse
+    #         }
+    #     }
 
         # # Recursive Search and Replace inside the logic folders only
         # # This keeps the environment variable names and logical names aligned to the target
