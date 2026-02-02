@@ -67,9 +67,40 @@ jobs:
             }
         }
 
-        # Recursive Search and Replace inside the logic folders only
-        # This keeps the environment variable names and logical names aligned to the target
-        Write-Host "Translating internal logic references from $oldPrefix to $newPrefix..."
+        # # Recursive Search and Replace inside the logic folders only
+        # # This keeps the environment variable names and logical names aligned to the target
+        # Write-Host "Translating internal logic references from $oldPrefix to $newPrefix..."
+        # Get-ChildItem -Path "$dst/Workflows", "$dst/CanvasApps" -Recurse -Include *.json,*.xml,*.msapp | ForEach-Object {
+        #     $content = Get-Content $_.FullName -Raw
+        #     $content -replace "$oldPrefix`_", "$newPrefix`_" | Set-Content $_.FullName -Encoding UTF8
+        # }
+        # 3. Updated PowerShell Logic with Canvas App File Renaming
+    - name: Overlay Logic and Rename Files
+      shell: pwsh
+      run: |
+        $src = "./src_folder"
+        $dst = "./dst_folder"
+        $oldPrefix = "utp"
+        $newPrefix = "jmfeproc"
+        
+        # 1. Sync Workflows (Usually just JSON files)
+        if (Test-Path "$src/Workflows") {
+            Copy-Item -Path "$src/Workflows/*" -Destination "$dst/Workflows/" -Force -Recurse
+        }
+
+        # 2. Sync and Rename CanvasApps (Handles the BackgroundImageUri error)
+        if (Test-Path "$src/CanvasApps") {
+            Get-ChildItem -Path "$src/CanvasApps" | ForEach-Object {
+                # Create the new filename by replacing the prefix
+                $newFileName = $_.Name -replace "^$oldPrefix", $newPrefix
+                
+                # Copy and rename simultaneously to the destination
+                Copy-Item -Path $_.FullName -Destination "$dst/CanvasApps/$newFileName" -Force
+            }
+        }
+
+        # 3. Recursive Search and Replace inside the files
+        Write-Host "Updating internal references..."
         Get-ChildItem -Path "$dst/Workflows", "$dst/CanvasApps" -Recurse -Include *.json,*.xml,*.msapp | ForEach-Object {
             $content = Get-Content $_.FullName -Raw
             $content -replace "$oldPrefix`_", "$newPrefix`_" | Set-Content $_.FullName -Encoding UTF8
