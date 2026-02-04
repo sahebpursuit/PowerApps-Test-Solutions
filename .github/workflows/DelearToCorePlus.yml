@@ -147,6 +147,16 @@ jobs:
       #     solution-folder: coreplus_unpacked
       #     solution-file: CorePlus_Updated.zip
       #     solution-type: Unmanaged
+      - name: Sync Connector Files
+        shell: pwsh
+        run: |
+          # If DealerCRM has connectors that CorePlus needs, copy them over
+          if (Test-Path "dealercrm_unpacked/Connectors") {
+              if (!(Test-Path "coreplus_unpacked/Connectors")) {
+                  New-Item -ItemType Directory -Path "coreplus_unpacked/Connectors"
+              }
+              Copy-Item "dealercrm_unpacked/Connectors/*" "coreplus_unpacked/Connectors/" -Recurse -Force
+          }
       - name: Pack CorePlus Solution
         shell: pwsh
         run: |
