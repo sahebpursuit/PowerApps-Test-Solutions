@@ -1,0 +1,158 @@
+name: Merge DealerCRM App into CorePlus App (Update Only)
+ 
+on:
+  workflow_dispatch:
+ 
+permissions:
+  contents: write
+ 
+jobs:
+  merge-and-deploy:
+    runs-on: ubuntu-latest
+ 
+    env:
+      ENV_URL: https://itstcoedev.crm8.dynamics.com
+ 
+      # Solution names
+      DealerCRM_SOLUTION_NAME: ITS_TCOE_SET_UATNext_DealerCRM_Solution
+      CorePlus_SOLUTION_NAME: ITSTCOE_CorePlus_UATNext_Solution
+ 
+      # Output zips
+      DealerCRM_ZIP: dealercrm.zip
+      CorePlus_ZIP: coreplus.zip
+ 
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+ 
+      - name: Install Power Platform CLI
+        uses: microsoft/powerplatform-actions/actions-install@v1
+ 
+      # --------------------------------------------------
+      # EXPORT BOTH SOLUTIONS
+      # --------------------------------------------------
+ 
+      - name: Export DealerCRM Solution
+        uses: microsoft/powerplatform-actions/export-solution@v1
+        with:
+          environment-url: ${{ env.ENV_URL }}
+          solution-name: ${{ env.DealerCRM_SOLUTION_NAME }}
+          solution-output-file: ${{ env.DealerCRM_ZIP }}
+          managed: false
+          app-id: ${{ secrets.POWER_PLATFORM_APP_ID }}
+          client-secret: ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.POWER_PLATFORM_TENANT_ID  }}
+ 
+      - name: Export CorePlus Solution
+        uses: microsoft/powerplatform-actions/export-solution@v1
+        with:
+          environment-url: ${{ env.ENV_URL }}
+          solution-name: ${{ env.CorePlus_SOLUTION_NAME }}
+          solution-output-file: ${{ env.CorePlus_ZIP }}
+          managed: false
+          app-id: ${{ secrets.POWER_PLATFORM_APP_ID }}
+          client-secret: ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.POWER_PLATFORM_TENANT_ID  }}
+ 
+      # --------------------------------------------------
+      # UNPACK BOTH
+      # --------------------------------------------------  
+ 
+      - name: Unpack DealerCRM Solution
+        uses: microsoft/powerplatform-actions/unpack-solution@v1
+        with:
+          solution-file: ${{ env.DealerCRM_ZIP }}
+          solution-folder: dealercrm_unpacked
+          solution-type: Unmanaged
+          overwrite-files: true
+ 
+      - name: Unpack CorePlus Solution
+        uses: microsoft/powerplatform-actions/unpack-solution@v1
+        with:
+          solution-file: ${{ env.CorePlus_ZIP }}
+          solution-folder: coreplus_unpacked
+          solution-type: Unmanaged
+          overwrite-files: true
+ 
+      # --------------------------------------------------
+      # COPY DealerCRM APP CONTENT INTO CorePlus APP
+      # --------------------------------------------------
+ 
+      - name: Replace CorePlus Canvas App Content
+        shell: pwsh
+        run: |
+          $corePlusApps = Get-ChildItem "coreplus_unpacked/CanvasApps" -Filter "*.msapp"
+          $DealerCRMApps = Get-ChildItem "dealercrm_unpacked/CanvasApps" -Filter "*.msapp"
+          if ($corePlusApps.Count -ne $DealerCRMApps.Count) {
+            Write-Error "Canvas App count mismatch"
+            exit 1
+          }
+          for ($i = 0; $i -lt $corePlusApps.Count; $i++) {
+            Copy-Item $DealerCRMApps[$i].FullName $corePlusApps[$i].FullName -Force
+          }
+ 
+      # --------------------------------------------------
+      # 🔥 MSAPP SURGERY: DealerCRM → CorePlus REFERENCES
+      # --------------------------------------------------
+ 
+      - name: Fix Environment Variables, Connectors & Flows
+        shell: pwsh
+        run: |
+          $replaceMap = @{
+            # Custom Connectors
+            "ITS-TCOE_SET_UATNextCRMMain" = "ITS-TCOE_CorePlus_UATNextMain"
+            "ITS-TCOE_SET_UATNextCRMELog" = "ITS_TCOE_CorePlus_UATNextELog"
+ 
+            # Environment Variables
+            "ITS-TCOE_SET_UATNext_DealerCRM_qTestProjectID" = "ITS-TCOE_CorePlus_UATNext_qTestProjectID"
+            "ITS-TCOE_SET_UATNext_DealerCRM_TestCaseModuleID" = "ITS-TCOE_CorePlus_UATNext_TestCaseModuleID"
+            "ITS-TCOE_SET_UATNext_DealerCRM_qTestModuleID" = "ITS-TCOE_CorePlus_UATNext_qTestModuleID"
+            "ITS-TCOE_SET_UATNext_DealerCRM_AQUAModuleID" = "ITS-TCOE_CorePlus_AQUAModuleID"
+            "ITS-TCOE_SET_UATNext_DealerCRM_Releases" = "ITS-TCOE_CorePlus_UATNext_Releases"
+            "ITS-TCOE_SET_UATNext_DealerCRM_ModuleController" = "ITS-TCOE_CorePlus_UATNext_ModuleController"
+            "ITS-TCOE_SET_UATNext_DealerCRM_Teams" = "ITS-TCOE_CorePlus_UATNext_Teams"
+ 
+            # Cloud Flow
+            "ITS-TCOE_SET_UATNext_DealerCRM_AttachmentUpload_Flow" = "ITS-TCOE_CorePlus_UATNext_AttachmentUpload_Flow"
+          }
+          $apps = Get-ChildItem "coreplus_unpacked/CanvasApps" -Filter "*.msapp"
+          foreach ($app in $apps) {
+            $tmp = "tmp_extract"
+            if (Test-Path $tmp) { Remove-Item $tmp -Recurse -Force }
+            Expand-Archive $app.FullName $tmp -Force
+            Get-ChildItem $tmp -Recurse -File | ForEach-Object {
+              $content = Get-Content $_.FullName -Raw
+              $changed = $false
+              foreach ($key in $replaceMap.Keys) {
+                if ($content.Contains($key)) {
+                  $content = $content.Replace($key, $replaceMap[$key])
+                  $changed = $true
+                }
+              }
+              if ($changed) {
+                Set-Content $_.FullName $content -NoNewline
+              }
+            }
+            Compress-Archive "$tmp/*" $app.FullName -Force
+            Remove-Item $tmp -Recurse -Force
+          }
+ 
+      # --------------------------------------------------
+      # PACK & IMPORT (UPDATE ONLY)
+      # --------------------------------------------------
+ 
+      - name: Pack CorePlus Solution
+        uses: microsoft/powerplatform-actions/pack-solution@v1
+        with:
+          solution-folder: coreplus_unpacked
+          solution-file: CorePlus_Updated.zip
+          solution-type: Unmanaged
+ 
+      - name: Import CorePlus Solution
+        uses: microsoft/powerplatform-actions/import-solution@v1
+        with:
+          environment-url: ${{ env.ENV_URL }}
+          solution-file: CorePlus_Updated.zip
+          app-id: ${{ secrets.POWER_PLATFORM_APP_ID }}
+          client-secret: ${{ secrets.POWER_PLATFORM_CLIENT_SECRET }}
+          tenant-id: ${{ secrets.POWER_PLATFORM_TENANT_ID  }}
