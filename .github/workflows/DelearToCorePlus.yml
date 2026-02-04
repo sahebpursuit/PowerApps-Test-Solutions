@@ -100,8 +100,8 @@ jobs:
         run: |
           $replaceMap = @{
             # Custom Connectors
-            "ITS-TCOE_SET_UATNextCRMMain" = "ITS-TCOE_CorePlus_UATNextMain"
-            "ITS-TCOE_SET_UATNextCRMELog" = "ITS_TCOE_CorePlus_UATNextELog"
+            # "ITS-TCOE_SET_UATNextCRMMain" = "ITS-TCOE_CorePlus_UATNextMain"
+            # "ITS-TCOE_SET_UATNextCRMELog" = "ITS_TCOE_CorePlus_UATNextELog"
  
             # Environment Variables
             "ITS-TCOE_SET_UATNext_DealerCRM_qTestProjectID" = "ITS-TCOE_CorePlus_UATNext_qTestProjectID"
