@@ -141,13 +141,21 @@ jobs:
       # PACK & IMPORT (UPDATE ONLY)
       # --------------------------------------------------
  
+      # - name: Pack CorePlus Solution
+      #   uses: microsoft/powerplatform-actions/pack-solution@v1
+      #   with:
+      #     solution-folder: coreplus_unpacked
+      #     solution-file: CorePlus_Updated.zip
+      #     solution-type: Unmanaged
       - name: Pack CorePlus Solution
-        uses: microsoft/powerplatform-actions/pack-solution@v1
-        with:
-          solution-folder: coreplus_unpacked
-          solution-file: CorePlus_Updated.zip
-          solution-type: Unmanaged
- 
+        shell: pwsh
+        run: |
+          # Move into the folder so the zip starts at the root files
+          Set-Location coreplus_unpacked
+          
+          # Use the PAC CLI instead of Compress-Archive for better compatibility
+          pac solution pack --zipfile ../CorePlus_Updated.zip --folder . --process CanvasApps
+      
       - name: Import CorePlus Solution
         uses: microsoft/powerplatform-actions/import-solution@v1
         with:
